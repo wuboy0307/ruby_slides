@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["mail@danielsousa.io"]
 
   spec.summary       = "RubySlides"
-  spec.description   = "Create Powerpoint presentations in Ruby with elements like slides, text, images, tables and charts."
+  spec.description   = "Create Powerpoint presentations in Ruby with tables, images and charts."
   spec.homepage      = "https://github.com/danielsousaio/ruby_slides"
   spec.license       = "MIT"
 
