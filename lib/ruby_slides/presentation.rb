@@ -13,7 +13,47 @@ module RubySlides
     end
 
     def introduction_slide(title, subtitle)
-      @slides << RubySlides::Slide::Introduction.new(title: title, subtitle: subtitle)
+      @slides << RubySlides::Slide::Introduction.new(title: title,
+                                                     subtitle: subtitle)
+    end
+
+    def textual_slide(title, content = [])
+      @slides << RubySlides::Slide::Textual.new(presentation: self,
+                                                title: title,
+                                                content: content)
+    end
+
+    def pictorial_slide(title, image_path, coords = {})
+      @slides << RubySlides::Slide::Pictorial.new(presentation: self,
+                                                  title: title,
+                                                  image_path: image_path,
+                                                  coords: coords)
+    end
+
+    def text_picture_slide(title, image_path, content = [])
+      @slides << RubySlides::Slide::TextPicSplit.new(presentation: self,
+                                                     title: title,
+                                                     image_path: image_path,
+                                                     content: content)
+    end
+
+    def picture_description_slide(title, image_path, content = [])
+      @slides << RubySlides::Slide::DescriptionPic.new(presentation: self,
+                                                       title: title,
+                                                       image_path: image_path,
+                                                       content: content)
+    end
+
+    def table_slide(title, content = [])
+      @slides << RubySlides::Slide::Table.new(presentation: self,
+                                              title: title,
+                                              content: content)
+    end
+
+    def chart_slide(title, series = [{}])
+      @slides << RubySlides::Slide::Chart.new(presentation: self,
+                                              title: title,
+                                              series: series)
     end
 
     def save(path)
@@ -29,10 +69,14 @@ module RubySlides
         end
 
         # Render/save generic stuff
-        render_view('content_type.xml.erb', "#{extract_path}/[Content_Types].xml")
-        render_view('presentation.xml.rel.erb', "#{extract_path}/ppt/_rels/presentation.xml.rels")
-        render_view('presentation.xml.erb', "#{extract_path}/ppt/presentation.xml")
-        render_view('app.xml.erb', "#{extract_path}/docProps/app.xml")
+        render_view('content_type.xml.erb',
+                    "#{extract_path}/[Content_Types].xml")
+        render_view('presentation.xml.rel.erb',
+                    "#{extract_path}/ppt/_rels/presentation.xml.rels")
+        render_view('presentation.xml.erb',
+                    "#{extract_path}/ppt/presentation.xml")
+        render_view('app.xml.erb',
+                    "#{extract_path}/docProps/app.xml")
 
         # Save slides
         slides.each_with_index do |slide, index|
@@ -50,6 +94,12 @@ module RubySlides
       slides.map {|slide|
         slide.file_type if slide.respond_to? :file_type
       }.compact.uniq
+    end
+
+    def charts
+      slides.map {|slide|
+        slide.class == RubySlides::Slide::Chart
+      }.count
     end
   end
 end

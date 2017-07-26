@@ -1,6 +1,12 @@
 require "ruby_slides/version"
 require "ruby_slides/util"
 require "ruby_slides/slide/introduction"
+require "ruby_slides/slide/pictorial"
+require "ruby_slides/slide/picture_description"
+require "ruby_slides/slide/text_picture_split"
+require "ruby_slides/slide/textual"
+require "ruby_slides/slide/table"
+require "ruby_slides/slide/chart"
 require "ruby_slides/compression"
 require "ruby_slides/presentation"
 
