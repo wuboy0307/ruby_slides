@@ -3,13 +3,13 @@ require 'erb'
 
 module RubySlides
   module Slide
-    class Introduction
+    class Textual
       include RubySlides::Util
 
-      attr_reader :title, :subtitle
+      attr_reader :title, :content
 
       def initialize(options={})
-        require_arguments [:title, :subtitle], options
+        require_arguments [:title, :content], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
       end
 
@@ -18,17 +18,13 @@ module RubySlides
         save_slide_xml(extract_path, index)
       end
 
-      def file_type
-        nil
-      end
-
       def save_rel_xml(extract_path, index)
-        render_view('introduction_rel.xml.erb', "#{extract_path}/ppt/slides/_rels/slide#{index}.xml.rels", index: 1)
+        render_view('textual_rel.xml.erb', "#{extract_path}/ppt/slides/_rels/slide#{index}.xml.rels", index: 2)
       end
       private :save_rel_xml
 
       def save_slide_xml(extract_path, index)
-        render_view('introduction_slide.xml.erb', "#{extract_path}/ppt/slides/slide#{index}.xml")
+        render_view('textual_slide.xml.erb', "#{extract_path}/ppt/slides/slide#{index}.xml")
       end
       private :save_slide_xml
     end
