@@ -8,7 +8,10 @@
   <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml" PartName="/ppt/presentation.xml"/>
   <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml" PartName="/ppt/slideMasters/slideMaster1.xml"/>
   <% slides.each_with_index do |slide, index| %>
-  <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml" PartName="/ppt/slides/slide<%= index + 1 %>.xml"/>
+    <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml" PartName="/ppt/slides/slide<%= index + 1 %>.xml"/>
+  <% end %>
+  <% charts.times do |ix|%>
+    <Override PartName="/ppt/charts/chart<%= ix + 1 %>.xml" ContentType="application/vnd.openxmlformats-officedocument.drawingml.chart+xml"/>
   <% end %>
   <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.presProps+xml" PartName="/ppt/presProps.xml"/>
   <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.viewProps+xml" PartName="/ppt/viewProps.xml"/>
