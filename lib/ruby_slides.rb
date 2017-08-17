@@ -7,6 +7,7 @@ require "ruby_slides/slide/text_picture_split"
 require "ruby_slides/slide/textual"
 require "ruby_slides/slide/table"
 require "ruby_slides/slide/chart"
+require "ruby_slides/slide/poster"
 require "ruby_slides/compression"
 require "ruby_slides/presentation"
 

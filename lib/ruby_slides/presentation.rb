@@ -6,10 +6,11 @@ module RubySlides
   class Presentation
     include RubySlides::Util
 
-    attr_reader :slides
+    attr_reader :slides, :poster
 
     def initialize
       @slides = []
+      @poster = false
     end
 
     def introduction_slide(title, subtitle)
@@ -54,6 +55,24 @@ module RubySlides
       @slides << RubySlides::Slide::Chart.new(presentation: self,
                                               title: title,
                                               series: series)
+    end
+
+    def poster_slide(title, authors,
+                     introduction_title, introduction_body,
+                     discussion_title, discussion_body,
+                     values_title, values_body,
+                     bibliography_title, bibliography_body)
+      @slides << RubySlides::Slide::Poster.new(presentation: self,
+                                        title: title,
+                                        authors: authors,
+                                        introduction_title: introduction_title,
+                                        introduction_body: introduction_body,
+                                        discussion_title: discussion_title,
+                                        discussion_body: discussion_body,
+                                        values_title: values_title,
+                                        values_body: values_body,
+                                        bibliography_title: bibliography_title,
+                                        bibliography_body: bibliography_body)
     end
 
     def save(path)

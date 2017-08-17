@@ -45,7 +45,7 @@
           <p:nvPr/>
         </p:nvGraphicFramePr>
         <p:xfrm>
-          <a:off x="2066760" y="2365560"/>
+          <a:off x="280000" y="1500000"/>
           <a:ext cx="5075280" cy="2159280"/>
         </p:xfrm>
         <a:graphic>
@@ -53,21 +53,22 @@
             <a:tbl>
               <a:tblPr/>
               <a:tblGrid>
-                <% content.count.times do %>
-                  <a:gridCol w="1268640"/>
+                <% cols = content.first.count %>
+                <% cols.times do %>
+                  <a:gridCol w="<%= 8600000/cols %>"/>
                 <% end %>
               </a:tblGrid>
               <% content.each do |row| %>
-              <a:tr h="719640">
+              <a:tr h="200000">
                 <% row.each do |cell| %>
                 <a:tc>
                   <a:txBody>
                     <a:bodyPr lIns="90000" rIns="90000" tIns="46800" bIns="46800"/>
                     <a:p>
                       <a:r>
-                        <a:rPr b="0" lang="en-US" sz="1800" spc="-1" strike="noStrike">
+                        <a:rPr b="0" lang="en-US" sz="1200" spc="-1" strike="noStrike">
                           <a:solidFill>
-                            <a:srgbClr val="000000"/>
+                            <a:srgbClr val="ffffff"/>
                           </a:solidFill>
                           <a:uFill>
                             <a:solidFill>
@@ -78,7 +79,7 @@
                         </a:rPr>
                         <a:t><%= cell %></a:t>
                       </a:r>
-                      <a:endParaRPr b="0" lang="en-US" sz="1800" spc="-1" strike="noStrike">
+                      <a:endParaRPr b="0" lang="en-US" sz="1200" spc="-1" strike="noStrike">
                         <a:solidFill>
                           <a:srgbClr val="000000"/>
                         </a:solidFill>
@@ -113,7 +114,7 @@
                       </a:solidFill>
                     </a:lnB>
                     <a:solidFill>
-                      <a:srgbClr val="b3b3b3"/>
+                      <a:srgbClr val="42668F"/>
                     </a:solidFill>
                   </a:tcPr>
                 </a:tc>

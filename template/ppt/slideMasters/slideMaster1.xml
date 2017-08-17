@@ -259,7 +259,7 @@
           <a:spcPct val="0"/>
         </a:spcBef>
         <a:buNone/>
-        <a:defRPr kern="1200" sz="4400">
+        <a:defRPr kern="1200" sz="2200">
           <a:solidFill>
             <a:schemeClr val="tx1"/>
           </a:solidFill>
@@ -276,7 +276,7 @@
         </a:spcBef>
         <a:buFont charset="0" pitchFamily="34" typeface="Arial"/>
         <a:buChar char="•"/>
-        <a:defRPr kern="1200" sz="3200">
+        <a:defRPr kern="1200" sz="1600">
           <a:solidFill>
             <a:schemeClr val="tx1"/>
           </a:solidFill>

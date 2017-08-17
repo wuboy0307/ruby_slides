@@ -8,14 +8,19 @@
   <p:sldId id="<%= 255 + (index+1) %>" r:id="rId<%= (index + 1) + 5 %>"/>
   <% end %>
   </p:sldIdLst>
-  <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+  <% if @poster %>
+    <%#<p:sldSz cx="27432000" cy="36576000" type="custom"/>%>
+    <p:sldSz cx="15119350" cy="21383625" type="custom"/>
+  <% else %>
+    <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+  <% end %>
   <p:notesSz cx="6858000" cy="9144000"/>
   <p:defaultTextStyle>
     <a:defPPr>
       <a:defRPr lang="en-US"/>
     </a:defPPr>
     <a:lvl1pPr algn="l" defTabSz="914400" eaLnBrk="1" hangingPunct="1" latinLnBrk="0" marL="0" rtl="0">
-      <a:defRPr kern="1200" sz="1800">
+      <a:defRPr kern="1200" sz="2000">
         <a:solidFill>
           <a:schemeClr val="tx1"/>
         </a:solidFill>
