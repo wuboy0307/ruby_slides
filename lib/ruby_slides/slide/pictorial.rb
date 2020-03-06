@@ -28,15 +28,19 @@ module RubySlides
       end
 
       def default_coords
-        slide_width = pixel_to_pt(720)
-        default_width = pixel_to_pt(550)
+        # Assume Slides width * height is like 620 * 360
+        slide_width = 620
+        slide_height = 360
+        image_block_height = (slide_height * (4/5.to_f)).round
+        # image_size is 1920*1280 (3:2)
+        image_block_width = (image_block_height * (3 / 2.to_f)).round
+        y_start = ((slide_height - image_block_height) / 2).round
+        x_start = ((slide_width - image_block_width) / 2).round
+        # image_size is 1920*1280 (3:2)
+        x_end = slide_width - x_start
+        y_end = slide_height - y_start
 
-        return {} unless dimensions = FastImage.size(image_path)
-        image_width, image_height = dimensions.map {|d| pixel_to_pt(d)}
-        new_width = default_width < image_width ? default_width : image_width
-        ratio = new_width / image_width.to_f
-        new_height = (image_height.to_f * ratio).round
-        {x: (slide_width / 2) - (new_width/2), y: pixel_to_pt(120), cx: new_width, cy: new_height}
+        {x: pixel_to_pt(x_start), y: pixel_to_pt(y_start), cx: pixel_to_pt(x_end), cy: pixel_to_pt(y_end)}
       end
       private :default_coords
 
