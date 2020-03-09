@@ -23,11 +23,12 @@ module RubySlides
                                                 content: content)
     end
 
-    def pictorial_slide(title, image_path, coords = {})
+    def pictorial_slide(title, image_path_list, image_per_page, coords_list = {})
       @slides << RubySlides::Slide::Pictorial.new(presentation: self,
                                                   title: title,
-                                                  image_path: image_path,
-                                                  coords: coords)
+                                                  image_path_list: image_path_list,
+                                                  coords_list: coords_list,
+                                                  image_per_page: image_per_page)
     end
 
     def text_picture_slide(title, image_path, content = [])

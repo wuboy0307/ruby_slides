@@ -8,40 +8,41 @@ module RubySlides
     class Pictorial
       include RubySlides::Util
 
-      attr_reader :image_name, :title, :coords, :image_path
+      attr_reader :image_name_list, :title, :coords_list, :image_path_list, :image_per_page
 
       def initialize(options={})
-        require_arguments [:presentation, :title, :image_path], options
+        require_arguments [:presentation, :title, :image_path_list], options
         options.each {|k, v| instance_variable_set("@#{k}", v)}
-        @coords = default_coords unless @coords.any?
-        @image_name = File.basename(@image_path)
+        @coords_list = default_coords(image_path_list) unless @coords_list.any?
+        @image_name_list = image_path_list.map{|image_path| File.basename(image_path) }
       end
 
       def save(extract_path, index)
-        copy_media(extract_path, @image_path)
+        copy_media(extract_path, @image_path_list)
         save_rel_xml(extract_path, index)
         save_slide_xml(extract_path, index)
       end
 
       def file_type
+        image_name = @image_path_list[0] if @image_path_list.count > 0
         File.extname(image_name).gsub('.', '')
       end
 
-      def default_coords
-        # Assume Slides width * height is like 620 * 360
-        slide_width = 620
-        slide_height = 360
-        image_block_height = (slide_height * (4/5.to_f)).round
-        # image_size is 1920*1280 (3:2)
+      def default_coords(img_list)
+        coords_list = []
+        slide_width =  pixel_to_pt(720)
+        slide_height = pixel_to_pt(405)
+        image_block_height = (slide_height * (5/6.to_f)).round
         image_block_width = (image_block_height * (3 / 2.to_f)).round
-        y_start = ((slide_height - image_block_height) / 2).round
-        x_start = ((slide_width - image_block_width) / 2).round
-        # image_size is 1920*1280 (3:2)
-        x_end = slide_width - x_start
-        y_end = slide_height - y_start
-
-        {x: pixel_to_pt(x_start), y: pixel_to_pt(y_start), cx: pixel_to_pt(x_end), cy: pixel_to_pt(y_end)}
+        each_image_block_height = (image_block_height / image_per_page.to_f).round
+        img_list.each_with_index do |img, index|
+          x_start = ((slide_width / 2) - (image_block_width / 2)).round
+          y_start = ((slide_height / 2 - image_block_height / 2) + (each_image_block_height * index) ).round
+          coords_list.push({x: x_start, y: y_start, cx: image_block_width, cy: each_image_block_height})
+        end
+        coords_list
       end
+
       private :default_coords
 
       def save_rel_xml(extract_path, index)
