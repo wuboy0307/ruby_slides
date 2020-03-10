@@ -30,15 +30,19 @@ module RubySlides
 
       def default_coords(img_list)
         coords_list = []
-        slide_width =  pixel_to_pt(720)
+        gap = 20
         slide_height = pixel_to_pt(405)
-        image_block_height = (slide_height * (5/6.to_f)).round
-        image_block_width = (image_block_height * (3 / 2.to_f)).round
-        each_image_block_height = (image_block_height / image_per_page.to_f).round
+        slide_width =  pixel_to_pt(720)
+        image_block_height = pixel_to_pt(190)
+        image_block_width = pixel_to_pt(580)
         img_list.each_with_index do |img, index|
           x_start = ((slide_width / 2) - (image_block_width / 2)).round
-          y_start = ((slide_height / 2 - image_block_height / 2) + (each_image_block_height * index) ).round
-          coords_list.push({x: x_start, y: y_start, cx: image_block_width, cy: each_image_block_height})
+          if image_per_page == 2
+            y_start = ( index == 0 ? pixel_to_pt(gap) : 0 + (image_block_height * index) + pixel_to_pt(gap * index) ).round
+          else
+            y_start = ((slide_height / 2 - image_block_height / 2) + (image_block_height * index) + pixel_to_pt(20 * index) ).round
+          end
+          coords_list.push({x: x_start, y: y_start, cx: image_block_width, cy: image_block_height})
         end
         coords_list
       end
